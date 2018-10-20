@@ -1,0 +1,24 @@
+{
+  "name": "angular-css-modules",
+  "version": "0.1.0",
+  "description": "css modules support for angular + webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/asv2001/angular-css-modules-loader.git"
+  },
+  "keywords": [
+    "angular",
+    "css-modules",
+    "webpack"
+  ],
+  "author": "Anton Sinelnyk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/asv2001/angular-css-modules-loader/issues"
+  },
+  "homepage": "https://github.com/asv2001/angular-css-modules-loader#readme"
+}
