@@ -24,7 +24,7 @@ function getNewHeaderText(header, params) {
 }
 function transformSource(source) {
     const callback = this.async();
-    const { prefix = "$", suffix = "", replacer = path.resolve(__dirname, "replacer.ts") } = loader_utils_1.getOptions(this) || {};
+    const { prefix = "$", replacer = path.resolve(__dirname, "replacer.ts"), suffix = "", unusedHtmlClasses = false, unusedSelectors = false, } = loader_utils_1.getOptions(this) || {};
     const componentRegExp = new RegExp("(@Component\\(\\{[\\S\\s.]*?\\}\\))", "gim");
     const matches = componentRegExp.exec(source);
     if (matches) {
@@ -33,7 +33,7 @@ function transformSource(source) {
             if (err) {
                 return callback(err);
             }
-            const newHeader = getNewHeaderText(matches[1], { prefix, suffix });
+            const newHeader = getNewHeaderText(matches[1], { prefix, suffix, unusedHtmlClasses, unusedSelectors });
             callback(null, header + source.replace(matches[1], newHeader), source);
         });
     }

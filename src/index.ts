@@ -4,8 +4,10 @@ import { getOptions } from "loader-utils";
 
 interface ICssModulesParams {
     prefix?: string;
-    suffix?: string;
     replacer?: string;
+    suffix?: string;
+    unusedHtmlClasses?: boolean;
+    unusedSelectors?: boolean;
 }
 
 function getNewHeaderText(header: string, params: ICssModulesParams): string {
@@ -25,7 +27,13 @@ function getNewHeaderText(header: string, params: ICssModulesParams): string {
 
 function transformSource(this: any, source: string): void {
     const callback: Function = this.async();
-    const { prefix = "$", suffix = "", replacer = path.resolve(__dirname, "replacer.ts") } = getOptions(this) || {};
+    const {
+        prefix = "$",
+        replacer = path.resolve(__dirname, "replacer.ts"),
+        suffix = "",
+        unusedHtmlClasses = false,
+        unusedSelectors = false,
+    } = getOptions(this) || {};
     const componentRegExp: RegExp = new RegExp("(@Component\\(\\{[\\S\\s.]*?\\}\\))", "gim");
     const matches: RegExpExecArray | null = componentRegExp.exec(source);
 
@@ -36,7 +44,7 @@ function transformSource(this: any, source: string): void {
                 return callback(err);
             }
 
-            const newHeader: string = getNewHeaderText(matches[1], { prefix, suffix });
+            const newHeader: string = getNewHeaderText(matches[1], { prefix, suffix, unusedHtmlClasses, unusedSelectors });
             callback(null, header + source.replace(matches[1], newHeader), source);
         });
     } else {

@@ -134,8 +134,7 @@ function __replaceCssModules({ prefix, suffix }: ICssModulesParams) {
 
 @Component({
     selector: "login",
-
-    template: __replaceCssModules({"prefix":"$","suffix":""})(require('./login.component.html'), [require('./login.component.scss')]),
+    template: __replaceCssModules({"prefix":"$","suffix":"",unusedHtmlClasses:false,unusedSelectors:false})(require('./login.component.html'), [require('./login.component.scss')]),
 })
 export class LoginComponent {
     ...
@@ -157,8 +156,16 @@ The replaced `template` will be transformed to something like this:
 ```
 
 
-You can manage the transformation by providing options to a loader:
+You can manage the transformation by providing options to a loader. The following options are available:
+
+| Option            | Type    | Default | Description                 |
+|-------------------|---------|---------|-----------------------------|
+| prefix            | string  | "$"     | Class prefix                |
+| suffix            | string  | ""      | Class suffix                |
+| unusedHtmlClasses | boolean | false   | Report unused HTML classes  |
+| unusedSelectors   | boolean | false   | Report unused CSS selectors |
+
 
 ```
-"angular2-template-loader?prefix=$&suffix=$"
+"angular-css-modules-loader?prefix=$&suffix=$&unusedHtmlClasses=true&unusedSelectors=true"
 ```
